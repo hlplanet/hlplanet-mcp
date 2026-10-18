@@ -44,13 +44,15 @@
     "test": "npm run build && node --test test/*.test.mjs",
     "start": "node dist/index.js",
     "prepublishOnly": "npm run typecheck && npm test",
-    "mcpb": "npm run build && node build-mcpb.mjs"
+    "mcpb": "npm run build && node build-mcpb.mjs",
+    "smithery": "npm run build && node build-smithery.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/mcpb": "^2.1.2",
     "@modelcontextprotocol/sdk": "^1.32.1",
     "@types/node": "^26.6.5",
     "esbuild": "^0.28.2",
+    "fflate": "^0.8.3",
     "typescript": "^7.0.2",
     "zod": "^4.6.7"
   }
