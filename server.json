@@ -1,0 +1,29 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.hlplanet/hlplanet-mcp",
+  "title": "HLPlanet Keyboard Sizes",
+  "description": "Compare keyboard sizes and 30 real keyboards, check desk and mousepad fit, search HLPlanet reviews.",
+  "websiteUrl": "https://www.hlplanet.com/keyboard-layout/",
+  "repository": {
+    "url": "https://github.com/hlplanet/hlplanet-mcp",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/hlplanet/hlplanet-mcp/main/icon.png",
+      "mimeType": "image/png",
+      "sizes": ["512x512"]
+    }
+  ],
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "hlplanet-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

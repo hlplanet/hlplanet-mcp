@@ -1,0 +1,57 @@
+{
+  "name": "hlplanet-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.hlplanet/hlplanet-mcp",
+  "description": "MCP server for keyboard sizes: compare 100%, TKL, 75%, 65% and 60% layouts and 30 real keyboards, check desk and mousepad fit, find keys, and search HLPlanet keyboard reviews.",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "keyboard",
+    "keyboard-size",
+    "mechanical-keyboard",
+    "hall-effect",
+    "rapid-trigger",
+    "gaming",
+    "hlplanet"
+  ],
+  "homepage": "https://www.hlplanet.com/keyboard-layout/",
+  "bugs": {
+    "url": "https://github.com/hlplanet/hlplanet-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hlplanet/hlplanet-mcp.git"
+  },
+  "license": "MIT",
+  "author": "HLPlanet (https://www.hlplanet.com/)",
+  "type": "module",
+  "bin": {
+    "hlplanet-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run typecheck && npm test",
+    "mcpb": "npm run build && node build-mcpb.mjs"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^2.1.2",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "@types/node": "^26.6.5",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2",
+    "zod": "^4.6.7"
+  }
+}
