@@ -1,6 +1,6 @@
 {
   "name": "hlplanet-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.hlplanet/hlplanet-mcp",
   "description": "MCP server for keyboard sizes: compare 100%, TKL, 75%, 65% and 60% layouts and 30 real keyboards, check desk and mousepad fit, find keys, and search HLPlanet keyboard reviews.",
   "keywords": [

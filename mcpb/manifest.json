@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "hlplanet-mcp",
   "display_name": "HLPlanet Keyboard Sizes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compare keyboard sizes and 30 real keyboards, check desk and mousepad fit, and search HLPlanet keyboard reviews.",
   "long_description": "Keyboard size answers backed by real data from HLPlanet.com. Compare full-size, 98%, TKL, 75%, 65% and 60% layouts (size difference, missing keys, extra mouse room), look up the measured dimensions of 30 reviewed keyboards, check whether a keyboard and mousepad fit on your desk including a full 360 turn at your sensitivity, find which sizes have a key like Delete or F5, and search HLPlanet reviews of Hall effect, TMR and rapid trigger keyboards. No account or API key needed.",
   "author": {
@@ -18,26 +18,61 @@
     "entry_point": "server/index.js",
     "mcp_config": {
       "command": "node",
-      "args": ["${__dirname}/server/index.js"]
+      "args": [
+        "${__dirname}/server/index.js"
+      ]
     }
   },
   "tools": [
-    { "name": "list_keyboard_sizes", "description": "Every standard keyboard size with key count, typical dimensions and missing keys" },
-    { "name": "compare_keyboards", "description": "Compare 2-6 keyboard sizes or real keyboards side by side" },
-    { "name": "get_keyboard_dimensions", "description": "Measured case dimensions of keyboards reviewed on HLPlanet" },
-    { "name": "check_desk_fit", "description": "Check whether a keyboard and mousepad fit on your desk" },
-    { "name": "which_sizes_have_key", "description": "Which keyboard sizes have a key such as Delete, F5 or the arrow keys" },
-    { "name": "search_hlplanet", "description": "Search HLPlanet.com keyboard and controller reviews" },
-    { "name": "list_testing_tools", "description": "Links to HLPlanet's free keyboard and gamepad testers" }
+    {
+      "name": "list_keyboard_sizes",
+      "description": "Every standard keyboard size with key count, typical dimensions and missing keys"
+    },
+    {
+      "name": "compare_keyboards",
+      "description": "Compare 2-6 keyboard sizes or real keyboards side by side"
+    },
+    {
+      "name": "get_keyboard_dimensions",
+      "description": "Measured case dimensions of keyboards reviewed on HLPlanet"
+    },
+    {
+      "name": "check_desk_fit",
+      "description": "Check whether a keyboard and mousepad fit on your desk"
+    },
+    {
+      "name": "which_sizes_have_key",
+      "description": "Which keyboard sizes have a key such as Delete, F5 or the arrow keys"
+    },
+    {
+      "name": "search_hlplanet",
+      "description": "Search HLPlanet.com keyboard and controller reviews"
+    },
+    {
+      "name": "list_testing_tools",
+      "description": "Links to HLPlanet's free keyboard and gamepad testers"
+    }
   ],
-  "keywords": ["keyboard", "keyboard size", "mechanical keyboard", "hall effect", "rapid trigger", "gaming", "desk setup"],
+  "keywords": [
+    "keyboard",
+    "keyboard size",
+    "mechanical keyboard",
+    "hall effect",
+    "rapid trigger",
+    "gaming",
+    "desk setup"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/hlplanet/hlplanet-mcp.git"
   },
   "compatibility": {
-    "platforms": ["darwin", "win32", "linux"],
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
     "runtimes": {
       "node": ">=18.0.0"
     }
