@@ -87,7 +87,7 @@ export function sizeBoard(def: LayoutDef, iso = false): Board {
   return {
     kind: 'size',
     id: def.id,
-    name: def.name + (def.size !== def.name ? ' (' + def.size + ')' : ''),
+    name: def.name + (def.name.includes(def.size) ? '' : ' (' + def.size + ')'),
     layout: def,
     parsed,
     widthMm: (parsed.widthU + 2 * BEZEL_U) * U_MM,
