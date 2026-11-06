@@ -25,5 +25,11 @@
         "type": "stdio"
       }
     }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.hlplanet.com/mcp"
+    }
   ]
 }

@@ -17,7 +17,11 @@ The data matches the interactive [keyboard size comparison](https://www.hlplanet
 
 ## Install
 
-No API key or account needed. Requires Node.js 18 or newer.
+No API key or account needed.
+
+**Hosted, nothing to install**: connect any client that supports remote MCP servers to `https://api.hlplanet.com/mcp` (Streamable HTTP, [docs](https://api.hlplanet.com/docs/mcp)). In Claude Code: `claude mcp add --transport http hlplanet https://api.hlplanet.com/mcp`.
+
+To run it locally instead, you need Node.js 18 or newer.
 
 **Claude Desktop**: download `hlplanet-mcp.mcpb` from the [latest release](https://github.com/hlplanet/hlplanet-mcp/releases/latest) and double-click it. Or add this to `claude_desktop_config.json`:
 
