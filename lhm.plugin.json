@@ -1,0 +1,1039 @@
+{
+  "author": "HLPlanet (https://www.hlplanet.com/)",
+  "cloudEndpoint": "https://api.hlplanet.com/mcp",
+  "description": "Answers keyboard size questions with measured data from HLPlanet.com: compare full-size to 60% layouts and 30 tested keyboards, check desk and mousepad fit, find which sizes keep a key, search HLPlanet reviews and list free keyboard and controller testers.",
+  "homepage": "https://www.hlplanet.com/keyboard-layout/",
+  "icon": "https://api.hlplanet.com/icon.png",
+  "identifier": "hlplanet-hlplanet-mcp",
+  "name": "HLPlanet Keyboard Sizes",
+  "prompts": [],
+  "resources": [],
+  "tags": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "keyboard",
+    "keyboard-size",
+    "mechanical-keyboard",
+    "hall-effect",
+    "rapid-trigger",
+    "gaming",
+    "hlplanet"
+  ],
+  "tools": [
+    {
+      "name": "list_keyboard_sizes",
+      "title": "List keyboard sizes",
+      "description": "List the standard keyboard sizes (full-size 100%, 98%/1800, TKL 80%, 75%, 65%, 60%) with key count, typical dimensions, the keys each one drops compared to full-size, and who it suits. Use it for general questions like \"what keyboard sizes are there\" or \"which size should I get\".",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "sizes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "string"
+                },
+                "keys": {
+                  "type": "integer"
+                },
+                "typical_width_mm": {
+                  "type": "number"
+                },
+                "typical_depth_mm": {
+                  "type": "number"
+                },
+                "narrower_than_full_size_mm": {
+                  "type": "number"
+                },
+                "missing_vs_full_size": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "string",
+                      "description": "Readable list of the keys, or \"none\""
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "codes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Key codes, e.g. ArrowUp"
+                    }
+                  },
+                  "required": [
+                    "summary",
+                    "count",
+                    "codes"
+                  ]
+                },
+                "best_for": {
+                  "type": "string"
+                },
+                "reviews": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "url": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "url"
+                    ]
+                  },
+                  "description": "HLPlanet reviews of keyboards in this size"
+                },
+                "compare_url": {
+                  "type": "string",
+                  "description": "This size drawn to scale on HLPlanet"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "size",
+                "keys",
+                "typical_width_mm",
+                "typical_depth_mm",
+                "narrower_than_full_size_mm",
+                "missing_vs_full_size",
+                "best_for",
+                "reviews",
+                "compare_url"
+              ]
+            }
+          },
+          "compare_url": {
+            "type": "string",
+            "description": "All sizes drawn to scale"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sizes",
+          "compare_url",
+          "source"
+        ]
+      },
+      "annotations": {
+        "title": "List keyboard sizes",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "compare_keyboards",
+      "title": "Compare keyboards",
+      "description": "Compare two to six keyboard sizes or real keyboards side by side: width, depth, key count, the keys each one is missing compared to the first, and how much desk / mouse room you gain. Accepts sizes (\"TKL\", \"75%\", \"60\") and keyboards reviewed on HLPlanet (\"Wooting 60HE v2\", \"MCHOSE Jet 75\"). Known keyboards: Redragon K761 Pro, Epomaker Galaxy100, NuPhy Air100 V3, ATK x QK Hex80, Wooting 80HE, GamaKay TK75 TMR, Yunzii RT75, NuPhy Kick75, Epomaker HE75 Mag, IQUNIX EZ75, Varmilo Minilo 75, Epomaker HE75 V2 TMR, DrunkDeer G75, MCHOSE Jet 75, XVX L75 Air, NuPhy Air75 V3, Keychron K3 HE, NuPhy Air75 HE, Keydous AJ68-CP, Epomaker HE65 V2 TMR, MCHOSE Ace 68 GT, Melgeek Made68 Ultra V2, Weikav NUT65, Varmilo Muse65 HE, Wooting 60HE v2, XVX Trooper63 HE, Epomaker Hack 59, Wooting 60HE+, IQUNIX EV63, DrunkDeer G60.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyboards": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 2,
+            "maxItems": 6,
+            "description": "The keyboards to compare. The first is the baseline the others are measured against. Use size names such as TKL or 75%, or keyboard models such as Wooting 80HE."
+          },
+          "iso": {
+            "type": "boolean",
+            "description": "Use the ISO layout (UK/EU, tall Enter, extra key by left Shift). Default ANSI."
+          }
+        },
+        "required": [
+          "keyboards"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "layout": {
+            "type": "string",
+            "enum": [
+              "ANSI",
+              "ISO"
+            ]
+          },
+          "reference": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "size",
+                  "model"
+                ],
+                "description": "\"size\" for a standard layout, \"model\" for a keyboard measured in an HLPlanet review"
+              },
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string",
+                "description": "Layout size, e.g. 75%"
+              },
+              "keys": {
+                "type": "integer",
+                "description": "Number of keys"
+              },
+              "width_mm": {
+                "type": "number"
+              },
+              "depth_mm": {
+                "type": "number"
+              },
+              "measured": {
+                "type": "boolean",
+                "description": "True when the dimensions come from an HLPlanet review"
+              },
+              "review_url": {
+                "type": "string",
+                "description": "HLPlanet review, for measured keyboards only"
+              }
+            },
+            "required": [
+              "kind",
+              "id",
+              "name",
+              "size",
+              "keys",
+              "width_mm",
+              "depth_mm",
+              "measured"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "size",
+                    "model"
+                  ],
+                  "description": "\"size\" for a standard layout, \"model\" for a keyboard measured in an HLPlanet review"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "string",
+                  "description": "Layout size, e.g. 75%"
+                },
+                "keys": {
+                  "type": "integer",
+                  "description": "Number of keys"
+                },
+                "width_mm": {
+                  "type": "number"
+                },
+                "depth_mm": {
+                  "type": "number"
+                },
+                "measured": {
+                  "type": "boolean",
+                  "description": "True when the dimensions come from an HLPlanet review"
+                },
+                "review_url": {
+                  "type": "string",
+                  "description": "HLPlanet review, for measured keyboards only"
+                },
+                "width_diff_mm": {
+                  "type": "number",
+                  "description": "Negative means narrower than the reference"
+                },
+                "depth_diff_mm": {
+                  "type": "number"
+                },
+                "missing_keys": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "string",
+                      "description": "Readable list of the keys, or \"none\""
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "codes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Key codes, e.g. ArrowUp"
+                    }
+                  },
+                  "required": [
+                    "summary",
+                    "count",
+                    "codes"
+                  ]
+                },
+                "extra_keys": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "string",
+                      "description": "Readable list of the keys, or \"none\""
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "codes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Key codes, e.g. ArrowUp"
+                    }
+                  },
+                  "required": [
+                    "summary",
+                    "count",
+                    "codes"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "id",
+                "name",
+                "size",
+                "keys",
+                "width_mm",
+                "depth_mm",
+                "measured",
+                "width_diff_mm",
+                "depth_diff_mm",
+                "missing_keys",
+                "extra_keys"
+              ]
+            },
+            "description": "Every keyboard after the first, compared with it"
+          },
+          "compare_url": {
+            "type": "string",
+            "description": "The comparison drawn to scale on HLPlanet"
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "layout",
+          "reference",
+          "items",
+          "compare_url",
+          "notes"
+        ]
+      },
+      "annotations": {
+        "title": "Compare keyboards",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "get_keyboard_dimensions",
+      "title": "Get keyboard dimensions",
+      "description": "Measured case dimensions (width x depth) of keyboards reviewed on HLPlanet. Search by name (\"NuPhy Air75\"), list every keyboard of one size (\"75%\"), or leave both empty to list all of them. Returns each match with its size, width and depth in cm and inches, and a link to its review; if the query names a size instead of a keyboard, returns the typical size of that layout.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Keyboard name or part of it, e.g. \"Wooting\" or \"Jet 75\""
+          },
+          "size": {
+            "type": "string",
+            "enum": [
+              "100%",
+              "98%",
+              "TKL",
+              "75%",
+              "65%",
+              "60%"
+            ],
+            "description": "List only keyboards of this layout size."
+          }
+        },
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "keyboards": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "string"
+                },
+                "layout_id": {
+                  "type": "string"
+                },
+                "keys": {
+                  "type": "integer"
+                },
+                "width_mm": {
+                  "type": "number",
+                  "description": "Measured case width"
+                },
+                "depth_mm": {
+                  "type": "number",
+                  "description": "Measured case depth"
+                },
+                "review_url": {
+                  "type": "string"
+                },
+                "compare_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "size",
+                "layout_id",
+                "keys",
+                "width_mm",
+                "depth_mm",
+                "review_url",
+                "compare_url"
+              ]
+            },
+            "description": "Matching measured keyboards, widest first"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "standard_size": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              },
+              "keys": {
+                "type": "integer"
+              },
+              "typical_width_mm": {
+                "type": "number"
+              },
+              "typical_depth_mm": {
+                "type": "number"
+              },
+              "narrower_than_full_size_mm": {
+                "type": "number"
+              },
+              "missing_vs_full_size": {
+                "type": "object",
+                "properties": {
+                  "summary": {
+                    "type": "string",
+                    "description": "Readable list of the keys, or \"none\""
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "codes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Key codes, e.g. ArrowUp"
+                  }
+                },
+                "required": [
+                  "summary",
+                  "count",
+                  "codes"
+                ]
+              },
+              "best_for": {
+                "type": "string"
+              },
+              "reviews": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "url"
+                  ]
+                },
+                "description": "HLPlanet reviews of keyboards in this size"
+              },
+              "compare_url": {
+                "type": "string",
+                "description": "This size drawn to scale on HLPlanet"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "size",
+              "keys",
+              "typical_width_mm",
+              "typical_depth_mm",
+              "narrower_than_full_size_mm",
+              "missing_vs_full_size",
+              "best_for",
+              "reviews",
+              "compare_url"
+            ],
+            "description": "Present when the query names a size rather than a keyboard"
+          }
+        },
+        "required": [
+          "keyboards",
+          "count"
+        ]
+      },
+      "annotations": {
+        "title": "Get keyboard dimensions",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "check_desk_fit",
+      "title": "Check desk and mousepad fit",
+      "description": "Check whether a keyboard and mousepad fit side by side on a desk. The keyboard is placed with its B key in front of the screen centre (move it with keyboard_offset_cm). Returns the mouse room left, whether the pad fits or how far it hangs off, how far the mouse sits from the screen centre, and whether a full 360-degree turn at the given sensitivity (cm/360) fits on the pad.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "keyboards": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "maxItems": 6,
+            "description": "The keyboards to place on the desk, as size names (TKL, 75%) or keyboard models. Each one is checked on its own."
+          },
+          "desk_width_cm": {
+            "type": "number",
+            "minimum": 30,
+            "maximum": 400,
+            "description": "Usable width of the desk surface in centimetres (inches x 2.54)."
+          },
+          "mousepad": {
+            "type": "string",
+            "enum": [
+              "small",
+              "medium",
+              "large",
+              "xl",
+              "deskmat",
+              "custom"
+            ],
+            "default": "large",
+            "description": "Mousepad preset. In cm: small 25x21, medium 36x30, large 45x40, xl 49x42; a deskmat (90x40) sits under both keyboard and mouse. Use custom together with mousepad_width_cm."
+          },
+          "mousepad_width_cm": {
+            "type": "number",
+            "minimum": 5,
+            "maximum": 200,
+            "description": "Width of a custom mousepad in centimetres."
+          },
+          "cm_per_360": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 200,
+            "description": "Mouse sensitivity as cm of movement for a full 360 turn"
+          },
+          "left_handed": {
+            "type": "boolean",
+            "description": "Mouse on the left of the keyboard"
+          },
+          "keyboard_offset_cm": {
+            "type": "number",
+            "minimum": -100,
+            "maximum": 100,
+            "description": "How far to shift the keyboard sideways from the centred position, in cm. Negative shifts it left, positive right."
+          }
+        },
+        "required": [
+          "keyboards",
+          "desk_width_cm"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "keyboard": {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "size",
+                        "model"
+                      ],
+                      "description": "\"size\" for a standard layout, \"model\" for a keyboard measured in an HLPlanet review"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "string",
+                      "description": "Layout size, e.g. 75%"
+                    },
+                    "keys": {
+                      "type": "integer",
+                      "description": "Number of keys"
+                    },
+                    "width_mm": {
+                      "type": "number"
+                    },
+                    "depth_mm": {
+                      "type": "number"
+                    },
+                    "measured": {
+                      "type": "boolean",
+                      "description": "True when the dimensions come from an HLPlanet review"
+                    },
+                    "review_url": {
+                      "type": "string",
+                      "description": "HLPlanet review, for measured keyboards only"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "id",
+                    "name",
+                    "size",
+                    "keys",
+                    "width_mm",
+                    "depth_mm",
+                    "measured"
+                  ]
+                },
+                "desk_width_cm": {
+                  "type": "number"
+                },
+                "mousepad": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "width_cm": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "name",
+                    "width_cm"
+                  ]
+                },
+                "left_handed": {
+                  "type": "boolean"
+                },
+                "mouse_room_cm": {
+                  "type": "number",
+                  "description": "Desk width left for the mouse beside the keyboard"
+                },
+                "pad_fits": {
+                  "type": "boolean"
+                },
+                "pad_spare_cm": {
+                  "type": "number",
+                  "description": "Room left beside the pad; negative means it hangs off the desk"
+                },
+                "mouse_from_screen_centre_cm": {
+                  "type": "number"
+                },
+                "turn_360": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "cm_per_360": {
+                      "type": "number"
+                    },
+                    "fits": {
+                      "type": "boolean"
+                    },
+                    "short_by_cm": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "cm_per_360",
+                    "fits",
+                    "short_by_cm"
+                  ],
+                  "description": "Null when cm_per_360 was not given"
+                },
+                "tip": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "slide_keyboard_cm": {
+                      "type": "number"
+                    },
+                    "direction": {
+                      "type": "string",
+                      "enum": [
+                        "left",
+                        "right"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "slide_keyboard_cm",
+                    "direction"
+                  ]
+                },
+                "desk_too_narrow_by_cm": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "planner_url": {
+                  "type": "string",
+                  "description": "The desk drawn to scale on HLPlanet"
+                },
+                "notes": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "keyboard",
+                "desk_width_cm",
+                "mousepad",
+                "left_handed",
+                "mouse_room_cm",
+                "pad_fits",
+                "pad_spare_cm",
+                "mouse_from_screen_centre_cm",
+                "turn_360",
+                "tip",
+                "desk_too_narrow_by_cm",
+                "planner_url",
+                "notes"
+              ]
+            },
+            "description": "One result per keyboard"
+          }
+        },
+        "required": [
+          "results"
+        ]
+      },
+      "annotations": {
+        "title": "Check desk and mousepad fit",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "which_sizes_have_key",
+      "title": "Which keyboard sizes have a key",
+      "description": "Check which keyboard sizes have a key or key group, e.g. \"Delete\", \"F5\", \"Insert\", \"Print Screen\", \"backtick\", \"arrow keys\", \"numpad\", \"function keys\". Returns, for each standard size from 100% to 60%, whether it has the key: yes, partly (how many keys of the group) or no. Sizes without it usually reach it through an Fn layer.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The key or key group to look up, named the way people usually call it: Delete, F12, Home, arrow keys, numpad."
+          },
+          "iso": {
+            "type": "boolean",
+            "description": "Use the ISO layout (UK/EU, tall Enter, extra key by left Shift). Default ANSI."
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The key or key group that was looked up"
+          },
+          "codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "layout": {
+            "type": "string",
+            "enum": [
+              "ANSI",
+              "ISO"
+            ]
+          },
+          "sizes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "has": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "partly",
+                    "no"
+                  ]
+                },
+                "present": {
+                  "type": "integer",
+                  "description": "How many of the keys this size has"
+                },
+                "total": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "has",
+                "present",
+                "total"
+              ]
+            }
+          },
+          "notes": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "codes",
+          "layout",
+          "sizes",
+          "notes",
+          "source"
+        ]
+      },
+      "annotations": {
+        "title": "Which keyboard sizes have a key",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "search_hlplanet",
+      "title": "Search HLPlanet reviews",
+      "description": "Search HLPlanet.com, a review site for Hall effect, TMR and rapid trigger keyboards, gaming controllers and gaming gear. Returns the titles and links of matching reviews, comparisons and guides, not the article text.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100,
+            "description": "Search terms: a keyboard or controller model, a brand or a topic, e.g. \"Wooting 80HE\" or \"low profile hall effect\"."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5,
+            "description": "How many articles to return."
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "post or page"
+                }
+              },
+              "required": [
+                "title",
+                "url",
+                "type"
+              ]
+            }
+          },
+          "search_url": {
+            "type": "string",
+            "description": "The same search on hlplanet.com"
+          }
+        },
+        "required": [
+          "query",
+          "results",
+          "search_url"
+        ]
+      },
+      "annotations": {
+        "title": "Search HLPlanet reviews",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "list_testing_tools",
+      "title": "List free testing tools",
+      "description": "List free browser tools from HLPlanet for testing keyboards and controllers: keyboard tester (every key, rollover, chatter, rapid trigger, SOCD / Snap Tap), gamepad and stick drift tester, controller reaction time test and keyboard size comparison. The testers run in a web browser with a person at the keyboard or controller.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "url",
+                "description"
+              ]
+            }
+          }
+        },
+        "required": [
+          "tools"
+        ]
+      },
+      "annotations": {
+        "title": "List free testing tools",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ],
+  "version": "1.1.0"
+}
